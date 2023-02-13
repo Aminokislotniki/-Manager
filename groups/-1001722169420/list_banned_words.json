@@ -6,8 +6,8 @@
         "good_comment_reward": 2
     },
     "active": {
-        "new_messages": 1,
+        "new_messages": 2,
         "no_messages": 5,
-        "time": 5
+        "time": 36000
     }
 }

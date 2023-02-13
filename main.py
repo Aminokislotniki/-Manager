@@ -12,7 +12,7 @@ from bot_functionality.ban_words import handler_ban_words
 from admin_functionality.add_del_admin_user import new_memders, left_member
 from admin_functionality.push_notifications import handler_notifications
 from user.motivation import handler_motivation
-from user.user_cards import user_card, handler_change_profile, info_change_photo_discription, info_change_command
+from user.user_cards import user_card, handler_change_profile, info_change_command
 
 
 @bot.message_handler(chat_types=['private'], commands=['start'])
@@ -75,7 +75,6 @@ def call_main(call):
     handler_statistic_group(call)  # на кнопку статистики по группе
     handler_motivation(call)  # на кнопку мотивация, для изменения системы подсчета
     handler_change_profile(call)  # на кнопки изменения карточки пользователя
-
     # Флаг для выброса информации кнопка "Инфо"
     if flag == 'in':
         info = "info"

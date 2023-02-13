@@ -16,9 +16,41 @@
                 "ban_words": 0,
                 "bad_comment": 0,
                 "good_comment": 0,
+                "all_messages": 7,
+                "last_message": 1676301299,
+                "reputation": -3
+            }
+        },
+        {
+            "id_user": 673542622,
+            "user_name": "Юрченко",
+            "user_username": "nastachka_09",
+            "status": "active",
+            "photo": "",
+            "description": "",
+            "karma": {
+                "ban_words": 0,
+                "bad_comment": 0,
+                "good_comment": 0,
+                "all_messages": 2,
+                "last_message": 1676344489.7961364,
+                "reputation": -8
+            }
+        },
+        {
+            "id_user": 1384250081,
+            "user_name": "Katrina",
+            "user_username": null,
+            "status": "active",
+            "photo": "",
+            "description": "",
+            "karma": {
+                "ban_words": 0,
+                "bad_comment": 0,
+                "good_comment": 0,
                 "all_messages": 1,
-                "last_message": 1676298977,
-                "reputation": 1
+                "last_message": 1676344466.7642827,
+                "reputation": -4
             }
         }
     ],

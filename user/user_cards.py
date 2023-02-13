@@ -23,7 +23,6 @@ def user_card(message):
     g = open('groups/' + str(group_id) + '/' + str(group_id) + '.json', 'r', encoding='utf-8')
     user_list = json.load(g)
     g.close()
-    print(message)
     if message.reply_to_message != None:
         name = message.reply_to_message.from_user.first_name
         username = message.reply_to_message.from_user.username
@@ -38,7 +37,7 @@ def user_card(message):
                               f'   \n'
                               f'📝<b>Описание:</b> {i["description"]}\n'
                               f'📷<b>Фото:</b> 👇👇👇 \n'
-                              f'👍Изменить фото или описание /info_change' ,parse_mode="html")
+                              f'⚠️Изменить фото или описание /info_change',parse_mode="html")
                 photo1 = i["photo"]
                 if i["photo"] != "":
                     bot.send_photo(message.chat.id, photo1)
@@ -56,7 +55,7 @@ def user_card(message):
                                           f'   \n'
                                           f'📝<b>Описание:</b> {i["description"]}\n'
                                           f'📷<b>Фото:</b> 👇👇👇\n'
-                                          f'👍Изменить фото или описание /info_change',parse_mode="html")
+                                          f'️Изменить фото или описание /info_change',parse_mode="html" )
                 photo1 = i["photo"]
                 if i["photo"] != "":
                     bot.send_photo(message.chat.id, photo1)
