@@ -10,15 +10,31 @@
             "user_name": "Aminokislotniki",
             "user_username": "tima_minski",
             "status": "active",
-            "photo": "",
+            "photo": "AgACAgIAAxkBAAIQymPqO2_K9xKxfrLjCSaDke9VZ_N8AAIZwzEbUblQS78nUGxx5e8ZAQADAgADeAADLgQ",
             "description": "",
             "karma": {
-                "ban_words": 0,
+                "ban_words": 5,
                 "bad_comment": 0,
                 "good_comment": 0,
-                "all_messages": 4,
-                "last_message": 1676326016.181969,
-                "reputation": -16
+                "all_messages": 19,
+                "last_message": 1676294928,
+                "reputation": -41
+            }
+        },
+        {
+            "id_user": 673542622,
+            "user_name": "Юрченко",
+            "user_username": "nastachka_09",
+            "status": "active",
+            "photo": "AgACAgIAAxkBAAIQ3mPqP3YEyHGNZ8ib0iHecsQF1ivPAAJNxDEb4JVQS6EhtwJ0-DtEAQADAgADeAADLgQ",
+            "description": "Я Настя. Мне 22 года",
+            "karma": {
+                "ban_words": 1,
+                "bad_comment": 0,
+                "good_comment": 0,
+                "all_messages": 8,
+                "last_message": 1676296167,
+                "reputation": 20
             }
         }
     ],

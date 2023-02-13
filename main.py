@@ -29,25 +29,28 @@ def start(message):
 def info_change(message):
     info_change_command(message)
 
+@bot.message_handler(chat_types=['group', 'supergroup'], commands=["info"])
+def mes_info(message):
+    user_card(message)
 
 # handler работает только в супергруппах chat_types=['group'], в боте не фурычить
-@bot.message_handler(chat_types=['supergroup'], content_types=["text"], commands=["info"])
+@bot.message_handler(chat_types=['supergroup'], content_types=["text"])
 def check_banned_message(message):
     message_sharing(message)
-    clean_chat(message)
-    karma(message)
+    clean_chat(message) # удаляет бан слова
+    karma(message) #добавляет/отнимает карму
     active(message)
-    user_card(message)
+
 
 
 # handler работает только в группах chat_types=['group'], в боте не фурычить
-@bot.message_handler(chat_types=['group'], content_types=["text"], commands=["info"])
+@bot.message_handler(chat_types=['group'], content_types=["text"])
 def check_banned_message(message):
     message_sharing(message)
-    clean_chat(message)
-    karma(message)
+    clean_chat(message) # удаляет бан слова
+    karma(message)#добавляет/отнимает карму
     active(message)
-    user_card(message)
+
 
 
 # обрабатывает всех, кто подписался/добавили в группу

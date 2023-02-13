@@ -1,4 +1,5 @@
 import json
+import time
 
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
@@ -44,9 +45,10 @@ def edit_motivation(message, call, group_id, val):
     list_on = json.load(f)
 
     if message.content_type == ("text") and message.text.replace(" ", "") and message.text.isdigit():
-        bot.delete_message(message.chat.id, message.message_id - 1)
+
         if val == "1":
             list_on["karma"]["punishment_ban_words"] = int(message.text)
+            # if time.time()
             with open('groups/' + str(group_id) + '/list_banned_words.json', "w", encoding="utf-8") as f:
                 json.dump(list_on, f, ensure_ascii=False, indent=4)
                 f.close()
@@ -195,43 +197,118 @@ def handler_motivation(call):
     if flag == "m1":
         val = "1"
         group_id = data
-        message = bot.send_message(call.message.chat.id, "Введите ЧИСЛОМ на сколько понизить репутацию за БАН-СЛОВА")
+        f = open('groups/' + str(group_id) + '/list_banned_words.json', 'r', encoding='utf-8')
+        list = json.load(f)
+        message = bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
+                                        text=f'📋Меню редактирования мотивации.\n'
+                                             f'✏️Выберите из списка, что хотите изменить.\n\n'
+                                             f'🚫Понизить за БАН-СЛОВА: <b>{list["karma"]["punishment_ban_words"]}</b>\n'
+                                             f'👎Понизить за ПЛОХОЙ КОММЕНТ: <b>{list["karma"]["punishment_bad_comment"]}</b>\n '
+                                             f'👍Повысить за ХОРОШИЙ КОММЕНТ: <b>{list["karma"]["good_comment_reward"]}</b>\n'
+                                             f'\n'
+                                             f'📝Повысить за НОВОЕ СООБЩЕНИЕ: <b>{list["active"]["new_messages"]}</b> \n'
+                                             f'⛔Понизить за НЕАКТИВНОСТЬ: <b>{list["active"]["no_messages"]}</b>\n'
+                                             f'🕜ВРЕМЯ неактивности в течении: <b>{int(list["active"]["time"] / 60 / 60)}</b> часов.\n\n'
+                                             f' Введите ЧИСЛОМ на сколько понизить \n репутацию за БАН-СЛОВО',
+                                        parse_mode="html")
         bot.register_next_step_handler(message, edit_motivation, call, group_id, val)
 
     # на Плохой коммент
     if flag == "m2":
         val = "2"
         group_id = data
-        message = bot.send_message(call.message.chat.id, "Введите ЧИСЛОМ на сколько понизить репутацию за ПЛОХОЙ "
-                                                         "КОММЕНТАРИЙ")
+        f = open('groups/' + str(group_id) + '/list_banned_words.json', 'r', encoding='utf-8')
+        list = json.load(f)
+        message = bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
+                              text=f'📋Меню редактирования мотивации.\n'
+                                   f'✏️Выберите из списка, что хотите изменить.\n\n'
+                                   f'🚫Понизить за БАН-СЛОВА: <b>{list["karma"]["punishment_ban_words"]}</b>\n'
+                                   f'👎Понизить за ПЛОХОЙ КОММЕНТ: <b>{list["karma"]["punishment_bad_comment"]}</b>\n '
+                                   f'👍Повысить за ХОРОШИЙ КОММЕНТ: <b>{list["karma"]["good_comment_reward"]}</b>\n'
+                                   f'\n'
+                                   f'📝Повысить за НОВОЕ СООБЩЕНИЕ: <b>{list["active"]["new_messages"]}</b> \n'
+                                   f'⛔Понизить за НЕАКТИВНОСТЬ: <b>{list["active"]["no_messages"]}</b>\n'
+                                   f'🕜ВРЕМЯ неактивности в течении: <b>{int(list["active"]["time"] / 60 / 60)}</b> часов.\n\n'
+                                   f' Введите ЧИСЛОМ на сколько понизить \n репутацию за ПЛОХОЙ КОММЕНТАРИЙ', parse_mode="html")
         bot.register_next_step_handler(message, edit_motivation, call, group_id, val)
 
     # на Хороший коммент
     if flag == "m3":
         val = "3"
         group_id = data
-        message = bot.send_message(call.message.chat.id, "Введите ЧИСЛОМ на сколько увеличить репутацию за ХОРОШИЙ "
-                                                         "КОММЕНТАРИЙ")
+        f = open('groups/' + str(group_id) + '/list_banned_words.json', 'r', encoding='utf-8')
+        list = json.load(f)
+        message = bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
+                                        text=f'📋Меню редактирования мотивации.\n'
+                                             f'✏️Выберите из списка, что хотите изменить.\n\n'
+                                             f'🚫Понизить за БАН-СЛОВА: <b>{list["karma"]["punishment_ban_words"]}</b>\n'
+                                             f'👎Понизить за ПЛОХОЙ КОММЕНТ: <b>{list["karma"]["punishment_bad_comment"]}</b>\n '
+                                             f'👍Повысить за ХОРОШИЙ КОММЕНТ: <b>{list["karma"]["good_comment_reward"]}</b>\n'
+                                             f'\n'
+                                             f'📝Повысить за НОВОЕ СООБЩЕНИЕ: <b>{list["active"]["new_messages"]}</b> \n'
+                                             f'⛔Понизить за НЕАКТИВНОСТЬ: <b>{list["active"]["no_messages"]}</b>\n'
+                                             f'🕜ВРЕМЯ неактивности в течении: <b>{int(list["active"]["time"] / 60 / 60)}</b> часов.\n\n'
+                                             f' Введите ЧИСЛОМ на сколько повысить \n репутацию за ХОРОШИЙ КОММЕНТАРИЙ',
+                                        parse_mode="html")
         bot.register_next_step_handler(message, edit_motivation, call, group_id, val)
 
     # на Новое сообщение
     if flag == "m4":
         val = "4"
         group_id = data
-        message = bot.send_message(call.message.chat.id, "Введите ЧИСЛОМ на сколько увеличить репутацию за НОВОЕ "
-                                                         "СООБЩЕНИЕ")
+        f = open('groups/' + str(group_id) + '/list_banned_words.json', 'r', encoding='utf-8')
+        list = json.load(f)
+        message = bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
+                                        text=f'📋Меню редактирования мотивации.\n'
+                                             f'✏️Выберите из списка, что хотите изменить.\n\n'
+                                             f'🚫Понизить за БАН-СЛОВА: <b>{list["karma"]["punishment_ban_words"]}</b>\n'
+                                             f'👎Понизить за ПЛОХОЙ КОММЕНТ: <b>{list["karma"]["punishment_bad_comment"]}</b>\n '
+                                             f'👍Повысить за ХОРОШИЙ КОММЕНТ: <b>{list["karma"]["good_comment_reward"]}</b>\n'
+                                             f'\n'
+                                             f'📝Повысить за НОВОЕ СООБЩЕНИЕ: <b>{list["active"]["new_messages"]}</b> \n'
+                                             f'⛔Понизить за НЕАКТИВНОСТЬ: <b>{list["active"]["no_messages"]}</b>\n'
+                                             f'🕜ВРЕМЯ неактивности в течении: <b>{int(list["active"]["time"] / 60 / 60)}</b> часов.\n\n'
+                                             f' Введите ЧИСЛОМ на сколько повысить \n репутацию за НОВОЕ СООБЩЕНИЕ',
+                                        parse_mode="html")
         bot.register_next_step_handler(message, edit_motivation, call, group_id, val)
 
     # на неактивность
     if flag == "m5":
         val = "5"
         group_id = data
-        message = bot.send_message(call.message.chat.id, "Введите ЧИСЛОМ на сколько понизить репутацию за НЕАКТИВНОСТЬ")
+        f = open('groups/' + str(group_id) + '/list_banned_words.json', 'r', encoding='utf-8')
+        list = json.load(f)
+        message = bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
+                                        text=f'📋Меню редактирования мотивации.\n'
+                                             f'✏️Выберите из списка, что хотите изменить.\n\n'
+                                             f'🚫Понизить за БАН-СЛОВА: <b>{list["karma"]["punishment_ban_words"]}</b>\n'
+                                             f'👎Понизить за ПЛОХОЙ КОММЕНТ: <b>{list["karma"]["punishment_bad_comment"]}</b>\n '
+                                             f'👍Повысить за ХОРОШИЙ КОММЕНТ: <b>{list["karma"]["good_comment_reward"]}</b>\n'
+                                             f'\n'
+                                             f'📝Повысить за НОВОЕ СООБЩЕНИЕ: <b>{list["active"]["new_messages"]}</b> \n'
+                                             f'⛔Понизить за НЕАКТИВНОСТЬ: <b>{list["active"]["no_messages"]}</b>\n'
+                                             f'🕜ВРЕМЯ неактивности в течении: <b>{int(list["active"]["time"] / 60 / 60)}</b> часов.\n\n'
+                                             f' Введите ЧИСЛОМ на сколько понизить \n репутацию за НЕАКТИВНОСТЬ',
+                                        parse_mode="html")
         bot.register_next_step_handler(message, edit_motivation, call, group_id, val)
 
     # на Время
     if flag == "m6":
         val = "6"
         group_id = data
-        message = bot.send_message(call.message.chat.id, "Введите ЧИСЛОМ какой промежуток времени неактивности.")
+        f = open('groups/' + str(group_id) + '/list_banned_words.json', 'r', encoding='utf-8')
+        list = json.load(f)
+        message = bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
+                                        text=f'📋Меню редактирования мотивации.\n'
+                                             f'✏️Выберите из списка, что хотите изменить.\n\n'
+                                             f'🚫Понизить за БАН-СЛОВА: <b>{list["karma"]["punishment_ban_words"]}</b>\n'
+                                             f'👎Понизить за ПЛОХОЙ КОММЕНТ: <b>{list["karma"]["punishment_bad_comment"]}</b>\n '
+                                             f'👍Повысить за ХОРОШИЙ КОММЕНТ: <b>{list["karma"]["good_comment_reward"]}</b>\n'
+                                             f'\n'
+                                             f'📝Повысить за НОВОЕ СООБЩЕНИЕ: <b>{list["active"]["new_messages"]}</b> \n'
+                                             f'⛔Понизить за НЕАКТИВНОСТЬ: <b>{list["active"]["no_messages"]}</b>\n'
+                                             f'🕜ВРЕМЯ неактивности в течении: <b>{int(list["active"]["time"] / 60 / 60)}</b> часов.\n\n'
+                                             f' Введите ЧИСЛОМ какой промежуток времени неактивности.',
+                                        parse_mode="html")
+
         bot.register_next_step_handler(message, edit_motivation, call, group_id, val)

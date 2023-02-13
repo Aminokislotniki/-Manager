@@ -1,13 +1,17 @@
 {
-    "banned_message": [],
+    "banned_message": [
+        "гусь",
+        "ап",
+        "1"
+    ],
     "karma": {
-        "punishment_ban_words": 10,
-        "punishment_bad_comment": 2,
-        "good_comment_reward": 6
+        "punishment_ban_words": 20,
+        "punishment_bad_comment": 10,
+        "good_comment_reward": 15
     },
     "active": {
-        "new_messages": 1,
-        "no_messages": 5,
-        "time": 0
+        "new_messages": 5,
+        "no_messages": 10,
+        "time": 18000
     }
 }

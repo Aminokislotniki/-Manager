@@ -21,6 +21,7 @@ def user_card(message):
     g = open('groups/' + str(group_id) + '/' + str(group_id) + '.json', 'r', encoding='utf-8')
     user_list = json.load(g)
     g.close()
+    print(message)
     if message.reply_to_message != None:
         name = message.reply_to_message.from_user.first_name
         username = message.reply_to_message.from_user.username
@@ -46,7 +47,6 @@ def user_card(message):
         user_id = message.from_user.id
         for i in user_list["subscribers"]:
             if i["id_user"] == int(user_id):
-
                 bot.send_message(message.chat.id, f'📊<b>Статистика</b> {name}\n'
                                           f'🏆<b>Репутация:</b> {i["karma"]["reputation"]}⭐️\n'
                                           f'👤<b>ID:</b> {user_id}\n'
