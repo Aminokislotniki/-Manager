@@ -1,5 +1,8 @@
 {
-    "banned_message": [],
+    "banned_message": [
+        "козел",
+        "баран"
+    ],
     "karma": {
         "punishment_ban_words": 10,
         "punishment_bad_comment": 2,

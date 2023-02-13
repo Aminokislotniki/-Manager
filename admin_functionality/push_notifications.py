@@ -203,7 +203,6 @@ def start_notifications(control_notifications, call, time_, group_id):
     counter = 1
     while counter < 2:
         if thread_stop == True:
-            print(counter)
             counter += 1
             time.sleep(0.5)
 
@@ -280,7 +279,6 @@ def handler_notifications(call):
 
     # СТАРТ уведомления
     if flag == "go":
-        print(data)
         control_notifications = data[:2]
         group_id = data[2:]
 
