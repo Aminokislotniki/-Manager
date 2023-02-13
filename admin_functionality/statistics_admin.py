@@ -1,3 +1,5 @@
+# Тима Минский tg: https://t.me/tima_minski
+
 from bot_functionality.statistics_group import statistic_group
 from loader import bot
 from config import dt, fs

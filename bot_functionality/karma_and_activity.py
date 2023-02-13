@@ -1,3 +1,5 @@
+# Тима Минский tg: https://t.me/tima_minski
+
 import json
 import os
 import sys

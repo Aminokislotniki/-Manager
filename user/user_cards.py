@@ -1,3 +1,5 @@
+# Тима Минский tg: https://t.me/tima_minski
+
 import json
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 

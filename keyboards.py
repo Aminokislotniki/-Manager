@@ -1,5 +1,5 @@
 # Тима Минский tg: https://t.me/tima_minski
-# все клавиатуры проекта
+# клавиатуры проекта
 
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
