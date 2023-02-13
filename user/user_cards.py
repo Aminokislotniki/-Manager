@@ -24,6 +24,7 @@ def user_card(message):
     if message.reply_to_message != None:
         name = message.reply_to_message.from_user.first_name
         username = message.reply_to_message.from_user.username
+
         user_id = message.reply_to_message.from_user.id
         for i in user_list["subscribers"]:
             if i["id_user"] == int(user_id):

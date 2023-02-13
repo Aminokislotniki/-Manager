@@ -4,14 +4,14 @@
 from loader import bot, id_bot
 import json
 import os
-from admin_functionality.add_group import check_is_group,group_file_archive
+from admin_functionality.add_group import check_is_group, group_file_archive
 
 
 # функция проверяет наличие нового пользователя по ID в json файле группы
 # если пользователя в списке нет, то добавляет
-def check_is_user(message, group_id,new_user_id):
+def check_is_user(message, group_id, new_user_id):
     list_admin_group = bot.get_chat_administrators(chat_id=group_id)  # все админы чата, включая владельца
-    number_of_subscribers = bot.get_chat_member_count(chat_id=group_id)  # колличество подписчиков чата
+    number_of_subscribers = bot.get_chat_member_count(chat_id=group_id)  # количество подписчиков чата
     with open(f'groups/{str(group_id)}/{str(group_id)}.json', "r", encoding="utf-8") as f:
         list_group = json.loads(f.read())
         f.close()
@@ -21,7 +21,7 @@ def check_is_user(message, group_id,new_user_id):
         admin_id = admin.user.id
         admin_name = admin.user.first_name
         admin_username = admin.user.username
-        admin_status = admin.status #creator
+        admin_status = admin.status  # creator
         buf_list = []
         if admin_status == 'administrator':
             for x in list_group['admin_group']:
@@ -46,11 +46,11 @@ def check_is_user(message, group_id,new_user_id):
         buf_list_new_user.append(x['id_user'])
     if new_user_id not in buf_list_new_user:
         list_group['subscribers'].append({'id_user': new_user_id,
-                                        'user_name': new_user_first_name,
-                                        'user_username': new_user_username,
-                                        'status': "active",
-                                        'photo': "",
-                                        'description': "",
+                                          'user_name': new_user_first_name,
+                                          'user_username': new_user_username,
+                                          'status': "active",
+                                          'photo': "",
+                                          'description': "",
                                           'karma': {
                                               'ban_words': 0,
                                               'bad_comment': 0,
@@ -61,7 +61,7 @@ def check_is_user(message, group_id,new_user_id):
                                           })
 
     list_group['number_of_subscribers'] = number_of_subscribers
-    list_group["subscribers_del_number"] = len(list_group['subscribers_del'])  # колличество удаленных пользователей
+    list_group["subscribers_del_number"] = len(list_group['subscribers_del'])  # количество удаленных пользователей
     with open(f'groups/{str(group_id)}/{str(group_id)}.json', "w", encoding="utf-8") as f:
         json.dump(list_group, f, ensure_ascii=False, indent=4)
 
@@ -75,7 +75,7 @@ def check_is_admin(message, group_id):
         admin_id = admin.user.id
         admin_name = admin.user.first_name
         admin_username = admin.user.username
-        admin_status = admin.status #creator
+        admin_status = admin.status  # creator
         if admin_status == "creator":
             try:
                 with open("administrator/" + str(admin_id) + ".json", "r", encoding="utf-8") as f:
@@ -96,19 +96,19 @@ def check_is_admin(message, group_id):
                     "creator": admin_id,
                     "creator_name": admin_name,
                     "creator_username": admin_username,
-                    "group": [{'group_id':group_id, 'group_name': group_title}]
+                    "group": [{'group_id': group_id, 'group_name': group_title}]
                 })
                 with open("administrator/" + str(admin_id) + ".json", "w", encoding="utf-8") as f:
                     json.dump(admin_dict, f, ensure_ascii=False, indent=4)
 
 
 # функция ловит удаленных пользователей, записывает в файл
-def check_del_user(message,group_id):
+def check_del_user(message, group_id):
     creator_id = message.from_user.id
     del_user_id = message.left_chat_member.id
     del_user_name = message.left_chat_member.first_name
     user_username = message.left_chat_member.username
-    number_of_subscribers = bot.get_chat_member_count(chat_id=group_id)  # колличество подписчиков чата
+    number_of_subscribers = bot.get_chat_member_count(chat_id=group_id)  # количество подписчиков чата
     with open(f'groups/{str(group_id)}/{str(group_id)}.json', "r", encoding="utf-8") as f:
         list_group = json.loads(f.read())
 
@@ -124,18 +124,17 @@ def check_del_user(message,group_id):
             del list_group['admin_group'][i]
             break
 
-
     # добавляем удаленного пользователя в файле группы в список "subscribers_del"
     buf_list_new_user = []
     for x in list_group['subscribers_del']:
         buf_list_new_user.append(x['id_user'])
     if del_user_id not in buf_list_new_user:
         list_group['subscribers_del'].append({'id_user': del_user_id,
-                                          'user_name': del_user_name,
-                                          'user_username': user_username,
-                                          'status': "delete",
-                                          'photo': "",
-                                          'description': "",
+                                              'user_name': del_user_name,
+                                              'user_username': user_username,
+                                              'status': "delete",
+                                              'photo': "",
+                                              'description': "",
                                               'karma': {
                                                   'ban_words': 0,
                                                   'bad_comment': 0,
@@ -145,23 +144,23 @@ def check_del_user(message,group_id):
                                                   "reputation": 0}
                                               })
 
-        list_group["subscribers_del_number"] = len(list_group['subscribers_del']) # колличество удаленных пользователей
-        list_group["number_of_subscribers"] = number_of_subscribers # колличество подписчиков чата
+        list_group["subscribers_del_number"] = len(list_group['subscribers_del'])  # количество удаленных пользователей
+        list_group["number_of_subscribers"] = number_of_subscribers  # количество подписчиков чата
     with open(f'groups/{str(group_id)}/{str(group_id)}.json', "w", encoding="utf-8") as f:
         json.dump(list_group, f, ensure_ascii=False, indent=4)
 
 
 # обрабатывает всех, кто подписался/добавили в группу
 def new_memders(message):
-    group_title = message.chat.title # название группы
-    group_id = message.chat.id # id группы
+    group_title = message.chat.title  # название группы
+    group_id = message.chat.id  # id группы
     new_user_id = message.new_chat_members[0].id
     new_user_name = message.new_chat_members[0].last_name
     if new_user_id == int(id_bot):
-        check_is_group(group_id,group_title)  # добавляет файл группы
+        check_is_group(group_id, group_title)  # добавляет файл группы
     else:
         bot.send_message(message.chat.id, "Добро пожаловать, {0}!".format(new_user_name))
-        check_is_user(message, group_id,new_user_id)
+        check_is_user(message, group_id, new_user_id)
     check_is_admin(message, group_id)  # добавляет владельца
 
 

@@ -9,7 +9,7 @@ from admin_functionality.push_notifications import notification
 from user.motivation import main_motivation
 
 
-# функция хэндлер "статистика" принимает call
+# функция handler "статистика" принимает call
 def handler_statistic(call):
     idx = call.message.chat.id
     user_id = call.message.chat.id

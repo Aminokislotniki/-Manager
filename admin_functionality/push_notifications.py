@@ -11,18 +11,17 @@ import threading
 
 
 # клавиатура для уведомлений
-def keyboard(call,group_id,val):
+def keyboard(call, group_id, val):
     keyboard = InlineKeyboardMarkup(row_width=2)
-    button1 = InlineKeyboardButton("Создать новое", callback_data="cn"+str(group_id))
-    button2 = InlineKeyboardButton("Все уведомления", callback_data="an"+str(group_id))
-    button3 = InlineKeyboardButton("Редактировать", callback_data="cr"+str(group_id))
+    button1 = InlineKeyboardButton("Создать новое", callback_data="cn" + str(group_id))
+    button2 = InlineKeyboardButton("Все уведомления", callback_data="an" + str(group_id))
+    button3 = InlineKeyboardButton("Редактировать", callback_data="cr" + str(group_id))
     button4 = InlineKeyboardButton("Добавить интервал", callback_data="pr" + str(group_id))
-
 
     exitbutton = InlineKeyboardButton(text="выход ✖️", callback_data="ss" + str(group_id))
     backbutton = InlineKeyboardButton('назад', callback_data="st:" + str(group_id))
     backbutton2 = InlineKeyboardButton('назад', callback_data="du" + str(group_id))
-    backbutton3 = InlineKeyboardButton('назад', callback_data="pr" + str(group_id)) # интервал изменить
+    backbutton3 = InlineKeyboardButton('назад', callback_data="pr" + str(group_id))  # интервал изменить
     backbutton4 = InlineKeyboardButton('назад', callback_data="cr" + str(group_id))  # текст изменить
     run_button = InlineKeyboardButton('Cтарт', callback_data="go++" + str(group_id))
     stop_button = InlineKeyboardButton('Cтоп', callback_data="go--" + str(group_id))
@@ -31,30 +30,26 @@ def keyboard(call,group_id,val):
     time2 = InlineKeyboardButton('60 мин', callback_data="ti60" + str(group_id))
     time3 = InlineKeyboardButton('Задать свое', callback_data="ti00" + str(group_id))
 
-
-    if val =="0":
+    if val == "0":
         keyboard.add(button1, backbutton, exitbutton)
     if val == "1":
         keyboard.add(backbutton2, exitbutton)
     if val == "2":
-        keyboard.add(button3, button4,backbutton2,exitbutton)
+        keyboard.add(button3, button4, backbutton2, exitbutton)
     if val == "3":
-        keyboard.add(time1,time2,time3,backbutton4,exitbutton)
+        keyboard.add(time1, time2, time3, backbutton4, exitbutton)
     if val == "4":
-        keyboard.add(stop_button,del_button,backbutton,exitbutton)
+        keyboard.add(stop_button, del_button, backbutton, exitbutton)
     if val == "5":
-        keyboard.add(run_button,backbutton3,exitbutton)
+        keyboard.add(run_button, backbutton3, exitbutton)
     if val == "7":
-        keyboard.add(run_button,del_button,backbutton,exitbutton)
+        keyboard.add(run_button, del_button, backbutton, exitbutton)
     if val == "8":
-        keyboard.add(stop_button,del_button,backbutton,exitbutton)
+        keyboard.add(stop_button, del_button, backbutton, exitbutton)
     if val == "9":
-        keyboard.add(run_button,del_button,backbutton,exitbutton)
-
-
+        keyboard.add(run_button, del_button, backbutton, exitbutton)
 
     return keyboard
-
 
 
 def notification(call, group_id):
@@ -64,17 +59,18 @@ def notification(call, group_id):
         if len(list['active']) == 0:
             val = "0"
             bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
-                              text='Меню уведомлений 🔔\n\n'
-                                'У вас нет активного уведомления, но вы можете его добавить!',
-                              reply_markup=keyboard(call,group_id,val), parse_mode='Markdown',
-                              disable_web_page_preview=True)
+                                  text='Меню уведомлений 🔔\n\n'
+                                       'У вас нет активного уведомления, но вы можете его добавить!',
+                                  reply_markup=keyboard(call, group_id, val), parse_mode='Markdown',
+                                  disable_web_page_preview=True)
         else:
-            if list["public"] =="yes":
+            if list["public"] == "yes":
                 val = "8"
                 bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
                                       text='Меню уведомлений 🔔\n'
-                                           '⚠️Уведомление запущено⚠️\n\n' + list['active'] +'\n\n У вас уже есть уведомление,'
-                                           ' нажмите "Удалить" чтоб создать новое',
+                                           '⚠️Уведомление запущено⚠️\n\n' + list[
+                                               'active'] + '\n\n У вас уже есть уведомление,'
+                                                           ' нажмите "Удалить" чтоб создать новое',
                                       reply_markup=keyboard(call, group_id, val), parse_mode='Markdown',
                                       disable_web_page_preview=True)
             if list["public"] == "no":
@@ -82,10 +78,11 @@ def notification(call, group_id):
                 bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
                                       text='Меню уведомлений 🔔\n'
                                            '⚠️Уведомление остановлено⚠️\n\n' + list[
-                                          'active'] + '\n\n У вас уже есть уведомление,'
-                                                      ' нажмите "Удалить" чтоб создать новое',
+                                               'active'] + '\n\n У вас уже есть уведомление,'
+                                                           ' нажмите "Удалить" чтоб создать новое',
                                       reply_markup=keyboard(call, group_id, val), parse_mode='Markdown',
                                       disable_web_page_preview=True)
+
 
 # функция создает новое уведомление
 def new_notification(message, call, group_id):
@@ -97,9 +94,9 @@ def new_notification(message, call, group_id):
         if message.content_type == "text" and message.text.replace(" ", "") != "":
             list["new"] = (message.text)
             bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
-                              text= 'Выглядит уведомление вот так: 😊\n\n' + list["new"]
-                                  ,reply_markup=keyboard(call,group_id,val),
-                              parse_mode="Markdown", disable_web_page_preview=True)
+                                  text='Выглядит уведомление вот так: 😊\n\n' + list["new"]
+                                  , reply_markup=keyboard(call, group_id, val),
+                                  parse_mode="Markdown", disable_web_page_preview=True)
         else:
             val = "0"
             bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
@@ -133,15 +130,15 @@ def create_notification(message, call, group_id):
         val = "2"
         bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
                               text='Выглядит уведомление вот так: 😊\n\n' + list["new"] +
-                              '\n\n⚠️ Ошибка при вводе текста ! еще раз внимательно введи '
-                                       'ТЕКСТ ⚠️'
+                                   '\n\n⚠️ Ошибка при вводе текста ! еще раз внимательно введи '
+                                   'ТЕКСТ ⚠️'
                               , reply_markup=keyboard(call, group_id, val),
                               parse_mode="Markdown", disable_web_page_preview=True)
     bot.delete_message(message.chat.id, message.message_id)
 
 
-#работает со временем уведомления
-def time_notifications(call,group_id,data_time):
+# работает со временем уведомления
+def time_notifications(call, group_id, data_time):
     val = "5"
     with open(f'groups/{str(group_id)}/push_notifications.json', "r", encoding="utf-8") as f:
         list = json.loads(f.read())
@@ -157,13 +154,12 @@ def time_notifications(call,group_id,data_time):
             f.close()
 
 
-#работает со временем уведомления свой интервал
+# работает со временем уведомления свой интервал
 def time_notifications_user(message, call, group_id):
-
     with open(f'groups/{str(group_id)}/push_notifications.json', "r", encoding="utf-8") as f:
         list = json.loads(f.read())
         f.close()
-        if message.content_type == ("text") and message.text.replace(" ", "") and message.text.isdigit():
+        if message.content_type == "text" and message.text.replace(" ", "") and message.text.isdigit():
             list["new_time"] = message.text
             val = "5"
             bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
@@ -188,18 +184,19 @@ def time_notifications_user(message, call, group_id):
 
 # функция работает с текстом уведомления
 def text_notifications(call, group_id):
-    val ="3"
+    val = "3"
     with open(f'groups/{str(group_id)}/push_notifications.json', "r", encoding="utf-8") as f:
         list = json.load(f)
         f.close()
         bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
                               text='Выглядит уведомление вот так: 😊\n\n' + list["new"] +
-                              '\n\n Укажите интервал оповещения.'
+                                   '\n\n Укажите интервал оповещения.'
                               , reply_markup=keyboard(call, group_id, val),
                               parse_mode="Markdown", disable_web_page_preview=True)
 
+
 # функция запускает уведомление и останавливает
-def start_notifications(control_notifications,call,time_,group_id):
+def start_notifications(control_notifications, call, time_, group_id):
     with open(f'groups/{str(group_id)}/push_notifications.json', "r", encoding="utf-8") as f:
         list = json.load(f)
         f.close()
@@ -217,20 +214,20 @@ def start_notifications(control_notifications,call,time_,group_id):
 def handler_notifications(call):
     data = dt(call.data)
     flag = fs(call.data)
-# создать новое уведомление
+    # создать новое уведомление
     if flag == "cn":
         val = "1"
         group_id = data
         message = bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
-                              text='Напиши новое уведомление 🔔',
-                              reply_markup=keyboard(call, group_id, val), parse_mode='Markdown',
-                              disable_web_page_preview=True)
+                                        text='Напиши новое уведомление 🔔',
+                                        reply_markup=keyboard(call, group_id, val), parse_mode='Markdown',
+                                        disable_web_page_preview=True)
 
         bot.register_next_step_handler(message, new_notification, call, group_id)
 
-
     if flag == "an":
         group_id = data
+
         def all_notifications(group_id):
             with open(f'groups/{str(group_id)}/push_notifications.json', "r", encoding="utf-8") as f:
                 list = json.load(f)
@@ -245,17 +242,17 @@ def handler_notifications(call):
                                                         disable_web_page_preview=True)
 
     # редактировать уведомление
-    if flag=="cr":
+    if flag == "cr":
         val = "1"
         group_id = data
         with open(f'groups/{str(group_id)}/push_notifications.json', "r", encoding="utf-8") as f:
             list = json.loads(f.read())
             f.close()
         message = bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
-                              text='Выглядит уведомление вот так: 😊\n\n' + list["new"] +
-                                   '\n\n Можешь изменить текст'
-                              , reply_markup=keyboard(call, group_id, val),
-                              parse_mode="Markdown", disable_web_page_preview=True)
+                                        text='Выглядит уведомление вот так: 😊\n\n' + list["new"] +
+                                             '\n\n Можешь изменить текст'
+                                        , reply_markup=keyboard(call, group_id, val),
+                                        parse_mode="Markdown", disable_web_page_preview=True)
 
         bot.register_next_step_handler(message, create_notification, call, group_id)
 
@@ -270,14 +267,14 @@ def handler_notifications(call):
         group_id = data[2:]
         time_notifications(call, group_id, data_time)
         if data_time == "00":
-            val ="2"
+            val = "2"
             with open(f'groups/{str(group_id)}/push_notifications.json', "r", encoding="utf-8") as f:
                 list = json.loads(f.read())
                 f.close()
             message = bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
-                              text='Выглядит уведомление вот так: 😊\n\n' + list["new"] +
-                              '\n\nУкажите свой интервал времени в МИНУТАХ.'
-                              , parse_mode="Markdown", disable_web_page_preview=True)
+                                            text='Выглядит уведомление вот так: 😊\n\n' + list["new"] +
+                                                 '\n\nУкажите свой интервал времени в МИНУТАХ.'
+                                            , parse_mode="Markdown", disable_web_page_preview=True)
 
             bot.register_next_step_handler(message, time_notifications_user, call, group_id)
 
@@ -288,7 +285,7 @@ def handler_notifications(call):
         group_id = data[2:]
 
         global thread_stop
-        if control_notifications =="++":
+        if control_notifications == "++":
             val = "4"
             with open(f'groups/{str(group_id)}/push_notifications.json', "r", encoding="utf-8") as f:
                 list = json.loads(f.read())
@@ -298,22 +295,22 @@ def handler_notifications(call):
                 list["public"] = "yes"
 
                 bot.edit_message_text(message_id=call.message.message_id, chat_id=call.message.chat.id,
-                                          text='Уведомление опубликовано 😊\n'
-                                               'Выглядит уведомление вот так: \n\n' + list["active"] +
-                                               '\n\n Интервал: ' + str(list["time"]) + ' минут.'
-                                          , reply_markup=keyboard(call, group_id, val),
-                                          parse_mode="Markdown", disable_web_page_preview=True)
+                                      text='Уведомление опубликовано 😊\n'
+                                           'Выглядит уведомление вот так: \n\n' + list["active"] +
+                                           '\n\n Интервал: ' + str(list["time"]) + ' минут.'
+                                      , reply_markup=keyboard(call, group_id, val),
+                                      parse_mode="Markdown", disable_web_page_preview=True)
                 with open(f'groups/{str(group_id)}/push_notifications.json', "w", encoding="utf-8") as f:
                     json.dump(list, f, ensure_ascii=False, indent=4)
                     f.close()
 
                 thread_stop = False
-                thread = threading.Thread(target=start_notifications,args=(control_notifications,call,int(list["time"])*60,group_id))
+                thread = threading.Thread(target=start_notifications,
+                                          args=(control_notifications, call, int(list["time"]) * 60, group_id))
                 thread.start()
 
-
         if control_notifications == "--":
-            thread_stop = True #Присваеваем значение True и завершаем поток
+            thread_stop = True  # Присваиваем значение True и завершаем поток
             val = "7"
             with open(f'groups/{str(group_id)}/push_notifications.json', "r", encoding="utf-8") as f:
                 list = json.loads(f.read())
@@ -329,9 +326,8 @@ def handler_notifications(call):
                 json.dump(list, f, ensure_ascii=False, indent=4)
                 f.close()
 
-
         if control_notifications == "dl":
-            thread_stop = True  # Присваеваем значение True и завершаем поток
+            thread_stop = True  # Присваиваем значение True и завершаем поток
 
             with open(f'groups/{str(group_id)}/push_notifications.json', "r", encoding="utf-8") as f:
                 list = json.loads(f.read())
@@ -343,4 +339,3 @@ def handler_notifications(call):
                 json.dump(list, f, ensure_ascii=False, indent=4)
                 f.close()
                 notification(call, group_id)
-
