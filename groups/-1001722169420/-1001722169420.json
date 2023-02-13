@@ -1,0 +1,29 @@
+{
+    "group_id": -1001722169420,
+    "name_group": "TESTbotBY",
+    "creator": "Aminokislotniki",
+    "admin_group": [],
+    "number_of_subscribers": 5,
+    "subscribers": [
+        {
+            "id_user": 958693574,
+            "user_name": "Aminokislotniki",
+            "user_username": "tima_minski",
+            "status": "active",
+            "photo": "",
+            "description": "",
+            "karma": {
+                "ban_words": 0,
+                "bad_comment": 0,
+                "good_comment": 0,
+                "all_messages": 4,
+                "last_message": 1676326016.181969,
+                "reputation": -16
+            }
+        }
+    ],
+    "subscribers_ban_number": "null",
+    "subscribers_ban": [],
+    "subscribers_del_number": 0,
+    "subscribers_del": []
+}

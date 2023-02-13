@@ -1,0 +1,25 @@
+{
+    "number_message": 4,
+    "chat_text": [
+        {
+            "date": 1676282698,
+            "user": 958693574,
+            "text": "/info@manager_chat_tim_bot"
+        },
+        {
+            "date": 1676282764,
+            "user": 958693574,
+            "text": "/info@manager_chat_tim_bot"
+        },
+        {
+            "date": 1676282784,
+            "user": 958693574,
+            "text": "/info@manager_chat_tim_bot"
+        },
+        {
+            "date": 1676282815,
+            "user": 958693574,
+            "text": "/info@manager_chat_tim_bot"
+        }
+    ]
+}

@@ -48,7 +48,7 @@ def check_is_group(group_id,group_title):
                               },
                     "active": {"new_messages": 1,
                                "no_messages": 5,
-                               "time": 0}
+                               "time": 5}
                     }
 
         with open(f'groups/{str(group_id)}/list_banned_words.json', "w", encoding="utf-8") as f:
