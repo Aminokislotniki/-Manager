@@ -3,7 +3,7 @@
     "karma": {
         "punishment_ban_words": 10,
         "punishment_bad_comment": 2,
-        "good_comment_reward": 2
+        "good_comment_reward": 6
     },
     "active": {
         "new_messages": 1,
