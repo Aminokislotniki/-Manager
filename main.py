@@ -42,7 +42,6 @@ def check_banned_message(message):
     active(message)
 
 
-
 # handler работает только в группах chat_types=['group'], в боте не фурычить
 @bot.message_handler(chat_types=['group'], content_types=["text"])
 def check_banned_message(message):
